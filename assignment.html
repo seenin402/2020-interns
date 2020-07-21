@@ -1,0 +1,113 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+ 	<title>Winsoft Graph</title>
+ </head>
+ <style type="text/css">
+ 	*{
+ 		margin: 0;
+ 		padding: 0;
+ 	}
+ 	canvas
+ 	{
+ 		border: 1px solid black;  
+ 		margin-top: 50px;
+ 		margin-left: 100px;
+ 	}
+ </style>
+ <body>
+ 	<canvas>
+ 		
+ 	</canvas>
+ 
+ </body>
+ <script type="text/javascript">
+ 	var canvas=document.querySelector('canvas');
+ 	canvas.width=1000;
+ 	canvas.height=500;
+
+
+ 	var xgrid=10;
+ 	var ygrid=10;
+ 	var cellsize=10;
+
+ 	var ctx=canvas.getContext('2d');
+
+ 	var data={
+ 		Jan0219:79.9855,
+ 		Jan0319:79.608,
+ 		Jan0419:79.4315,
+ 		Jan0719:79.6895
+ 	}
+
+ 	const entries= Object.entries(data);
+
+
+
+ 	function drawGrids()
+ 	{
+ 		ctx.beginPath();
+ 		while(xgrid<canvas.height)
+ 		{
+ 			ctx.moveTo(0,xgrid)
+ 			ctx.lineTo(canvas.width,xgrid);
+ 			xgrid+=cellsize;
+ 		}
+ 		while(ygrid<canvas.width)
+ 		{
+ 			ctx.moveTo(ygrid,0)
+ 			ctx.lineTo(ygrid,canvas.height);
+ 			ygrid+=cellsize;
+ 		}
+
+ 		ctx.strokeStyle='gray';
+ 		ctx.stroke();
+
+ 	}
+
+ 	function block(count)
+ 	{
+ 		return count*10;
+ 	}
+
+ 	function Axes()
+ 	{
+ 		var yplot=40;
+ 		var rate=0;
+ 		ctx.beginPath();
+ 		ctx.strokeStyle="black";
+ 		ctx.moveTo(block(5),block(5));
+ 		ctx.lineTo(block(5),block(40));
+ 		ctx.lineTo(block(80),block(40));
+ 		ctx.moveTo(block(5),block(40));
+
+ 		for (var i = 0; i < 7; i++) {
+ 			ctx.strokeText(rate,block(2),block(yplot));
+ 			yplot-=5
+ 			rate+=20;
+ 		}
+
+ 		ctx.stroke();
+ 	}
+
+ 	function drawChart()
+ 	{
+ 		ctx.beginPath();
+ 		ctx.strokeStyle='black';
+ 		ctx.moveTo(block(5),block(40));
+ 		var xPlot=10;
+
+for (const [date,rate] of entries) {
+ 			var rateinblock=rate/4;
+ 			ctx.lineTo(block(xPlot),block(40-rateinblock));
+ 			xPlot+=5;
+ 		}
+ 		ctx.stroke();
+ 	}
+
+
+ 	drawGrids(); 
+ 	Axes();
+ 	drawChart();
+ </script>
+ </html>
