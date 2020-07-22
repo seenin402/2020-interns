@@ -24,7 +24,7 @@
  <script type="text/javascript">
  	var canvas=document.querySelector('canvas');
  	canvas.width=1000;
- 	canvas.height=500;
+ 	canvas.height=600;
 
 
  	var xgrid=10;
@@ -37,10 +37,55 @@
  		Jan0219:79.9855,
  		Jan0319:79.608,
  		Jan0419:79.4315,
- 		Jan0719:79.6895
+ 		Jan0719:79.6895,
+ 		Jan0819:80.245,
+ 		Jan0919:80.6365,
+ 		Jan1019:81.2005,
+ 		Jan1119:81.3475,
+ 		Jan1419:81.2195,
+ 		Jan1519:81.213,
+ 		Jan1619:81.0055,
+ 		Jan1719:80.9765,
+ 		Jan1819:81.0875,
+ 		Jan2119:80.9335,
+ 		Jan2219:81.046,
+ 		Jan2319:81.0535,
+ 		Jan2419:80.656,
+ 		Jan2519:80.634,
+ 		Jan2819:81.232,
+ 		Jan2919:81.306,
+ 		Jan3019:81.351,
+ 		Jan3119:81.686
+
+ 	}
+var data1={
+ 		Jan0219:0.90165,
+ 		Jan0319:0.90312,
+ 		Jan0419:0.89988,
+ 		Jan0719:0.8972,
+ 		Jan0819:0.89743,
+ 		Jan0919:0.89913,
+ 		Jan1019:0.90423,
+ 		Jan1119:0.90015,
+ 		Jan1419:0.89263,
+ 		Jan1519:0.89025,
+ 		Jan1619:0.8859,
+ 		Jan1719:0.8826,
+ 		Jan1819:0.88125,
+ 		Jan2119:0.88303,
+ 		Jan2219:0.88,
+ 		Jan2319:0.87213,
+ 		Jan2419:0.87085,
+ 		Jan2519:0.8658,
+ 		Jan2819:0.86888,
+ 		Jan2919:0.86735,
+ 		Jan3019:0.87341,
+ 		Jan3119:0.87578
+
  	}
 
  	const entries= Object.entries(data);
+ 	const entry= Object.entries(data1);
 
 
 
@@ -72,19 +117,22 @@
 
  	function Axes()
  	{
- 		var yplot=40;
+ 		var yplot=50;
  		var rate=0;
  		ctx.beginPath();
  		ctx.strokeStyle="black";
  		ctx.moveTo(block(5),block(5));
- 		ctx.lineTo(block(5),block(40));
- 		ctx.lineTo(block(80),block(40));
- 		ctx.moveTo(block(5),block(40));
+ 		ctx.lineTo(block(5),block(50));
+ 		ctx.strokeText("Units to the base euro",block(2),block(22));
+ 		ctx.lineTo(block(80),block(50));
+ 		ctx.strokeText("To the base euro(date wise)",block(40),block(52));
+ 		ctx.moveTo(block(5),block(50));
 
- 		for (var i = 0; i < 7; i++) {
+
+ 		for (var i = 0; i < 10; i++) {
  			ctx.strokeText(rate,block(2),block(yplot));
  			yplot-=5
- 			rate+=20;
+ 			rate+=10;
  		}
 
  		ctx.stroke();
@@ -94,20 +142,39 @@
  	{
  		ctx.beginPath();
  		ctx.strokeStyle='black';
- 		ctx.moveTo(block(5),block(40));
+ 		ctx.moveTo(block(5),block(50));
  		var xPlot=10;
 
-for (const [date,rate] of entries) {
- 			var rateinblock=rate/4;
- 			ctx.lineTo(block(xPlot),block(40-rateinblock));
- 			xPlot+=5;
+		for (const [date,rate] of entries) {
+ 			var rateinblock=rate/2;
+
+ 			ctx.lineTo(block(xPlot),block(50-rateinblock));
+ 			xPlot+=3;
  		}
  		ctx.stroke();
+ 		ctx.strokeText("INR",block(xPlot),block(50-rateinblock-3));
  	}
+	function drawChart1()
+ 	{
+ 		ctx.beginPath();
+ 		ctx.strokeStyle='black';
+ 		ctx.moveTo(block(5),block(50));
+ 		var xPlot=10;
 
+for (const [date1,rate] of entry) {
+ 			var rateinblock=rate/2;
+
+ 			ctx.lineTo(block(xPlot),block(50-rateinblock));
+ 			xPlot+=3;
+ 		}
+ 		ctx.stroke();
+ 		ctx.strokeText("GBP",block(xPlot),block(50-rateinblock-3));
+ 	}
+ 	
 
  	drawGrids(); 
  	Axes();
  	drawChart();
+ 	drawChart1()
  </script>
  </html>
